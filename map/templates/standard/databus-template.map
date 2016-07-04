@@ -1,0 +1,43 @@
+{% set pnda_cluster = 'changeme-env' %}
+
+{% set zookeepers_number = 3 %}
+{% set brokers_number = 2 %}
+
+ubuntu_gplarge:
+{% for zoo_id in range(1, zookeepers_number + 1) %}
+  - {{ pnda_cluster }}-zk-{{ zoo_id }}:
+      minion:
+        mine_functions:
+          network.ip_addrs:
+            interface: eth0
+      grains:
+        roles:
+          - zookeeper
+        pnda_cluster: {{ pnda_cluster }}
+        cluster: zk{{ pnda_cluster }}
+{% endfor %}
+
+{% for broker_id in range(1, brokers_number + 1) %}
+  - {{ pnda_cluster }}-kafka-{{ broker_id }}:
+      minion:
+        mine_functions:
+          network.ip_addrs:
+            interface: eth0
+      grains:
+        roles:
+          - kafka
+        pnda_cluster: {{ pnda_cluster }}
+        broker_id:  {{ broker_id }}
+      security_groups: default
+{% endfor %}
+
+  - {{ pnda_cluster }}-tools-1:
+      minion:
+        mine_functions:
+          network.ip_addrs:
+            interface: eth0
+      grains:
+        roles: 
+          - tools
+          - elk
+        pnda_cluster: {{ pnda_cluster }}

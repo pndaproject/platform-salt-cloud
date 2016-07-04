@@ -1,0 +1,3 @@
+pool_size: 10
+update_cachedir: True
+diff_cache_events: True
