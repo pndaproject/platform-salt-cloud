@@ -33,7 +33,7 @@ start = datetime.datetime.now()
 
 def banner():
     print "🐼  🐼  🐼  🐼  🐼  🐼  🐼  🐼"
-    print "   P a N D A - C L I"
+    print "     P N D A - C L I"
     print "🐼  🐼  🐼  🐼  🐼  🐼  🐼  🐼"
 
 def run_cmd(cmd):
