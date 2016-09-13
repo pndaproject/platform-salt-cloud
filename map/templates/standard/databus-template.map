@@ -1,3 +1,4 @@
+{% set cluster_flavor = 'standard' %}
 {% set pnda_cluster = 'changeme-env' %}
 
 {% set zookeepers_number = 3 %}
@@ -11,6 +12,8 @@ ubuntu_gplarge:
           network.ip_addrs:
             interface: eth0
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         roles:
           - zookeeper
         pnda_cluster: {{ pnda_cluster }}
@@ -24,6 +27,8 @@ ubuntu_gplarge:
           network.ip_addrs:
             interface: eth0
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         roles:
           - kafka
         pnda_cluster: {{ pnda_cluster }}
@@ -37,7 +42,9 @@ ubuntu_gplarge:
           network.ip_addrs:
             interface: eth0
       grains:
-        roles: 
+        pnda:
+          flavor: {{ cluster_flavor }}
+        roles:
           - tools
           - elk
         pnda_cluster: {{ pnda_cluster }}
