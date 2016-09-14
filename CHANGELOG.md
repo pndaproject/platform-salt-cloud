@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [0.1.1] 2016-09-07
+### Changed
 - Install salt minions version 2015.8.10
 - Update the CLI banner
 
