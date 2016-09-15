@@ -5,7 +5,7 @@
 {% set brokers_number = 2 %}
 
 ubuntu_gplarge:
-{% for zoo_id in range(1, zookeepers_number + 1) %}
+{% for zoo_id in range(0, zookeepers_number) %}
   - {{ pnda_cluster }}-zk-{{ zoo_id }}:
       minion:
         mine_functions:
@@ -20,7 +20,7 @@ ubuntu_gplarge:
         cluster: zk{{ pnda_cluster }}
 {% endfor %}
 
-{% for broker_id in range(1, brokers_number + 1) %}
+{% for broker_id in range(0, brokers_number) %}
   - {{ pnda_cluster }}-kafka-{{ broker_id }}:
       minion:
         mine_functions:
