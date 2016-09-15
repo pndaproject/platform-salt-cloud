@@ -1,4 +1,4 @@
-{% set cluster_flavour = 'standard' %}
+{% set cluster_flavor = 'standard' %}
 {% set pnda_cluster = 'changeme-env' %}
 {% set datanodes_number = 4 %}
 {% set opentsdb_number = 1 %}
@@ -6,8 +6,8 @@
 logserver:
   - {{ pnda_cluster }}-logserver:
       grains:
-        cloudera:
-          cluster_flavour: {{ cluster_flavour }}
+        pnda:
+          flavor: {{ cluster_flavor }}
         roles:
           - logserver
         pnda_cluster: {{ pnda_cluster }}
@@ -15,8 +15,9 @@ logserver:
 cloudera_mgr:
   - {{ pnda_cluster }}-cdh-cm:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: CM
         roles:
           - cloudera_management
@@ -24,8 +25,9 @@ cloudera_mgr:
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr1:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: MGR01
         roles:
           - cloudera_management
@@ -34,38 +36,42 @@ cloudera_mgr:
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr2:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: MGR02
-        roles:          
+        roles:
           - cloudera_management
           - cloudera_namenode
           - cloudera_zookeeper
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr3:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: MGR03
         roles:
           - cloudera_management
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr4:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: MGR04
         roles:
           - cloudera_management
           - cloudera_zookeeper
-          - cloudera_oozie_database          
+          - cloudera_oozie_database
         pnda_cluster: {{ pnda_cluster }}
 
 cloudera_edge:
   - {{ pnda_cluster }}-cdh-edge:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: EDGE
         roles:
           - cloudera_edge
@@ -80,8 +86,9 @@ cloudera_edge:
 cloudera_jupyter:
   - {{ pnda_cluster }}-cdh-jupyter:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: EDGE
         roles:
           - cloudera_edge_jupyter
@@ -92,8 +99,9 @@ cloudera_datanode:
 {% for datanode_id in range(0, datanodes_number) %}
   - {{ pnda_cluster }}-cdh-dn{{ datanode_id }}:
       grains:
+        pnda:
+          flavor: {{ cluster_flavor }}
         cloudera:
-          cluster_flavour: {{ cluster_flavour }}
           role: DATANODE
         roles:
           - cloudera_datanode
@@ -104,8 +112,8 @@ ubuntu_co2large_ccs:
 {% for opentsdb_id in range(0, opentsdb_number) %}
   - {{ pnda_cluster }}-opentsdb-{{ opentsdb_id }}:
       grains:
-        cloudera:
-          cluster_flavour: {{ cluster_flavour }}
+        pnda:
+          flavor: {{ cluster_flavor }}
         roles:
           - opentsdb
 {% if opentsdb_id == 0 %}
