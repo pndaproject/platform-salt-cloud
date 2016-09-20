@@ -1,36 +1,37 @@
 {% set cluster_flavour = 'standard' %}
 {% set pnda_cluster = 'changeme-env' %}
-{% set datanodes_number = 4 %}
-{% set opentsdb_number = 1 %}
+{% set datanodes_number = 3 %}
+{% set opentsdb_number = 2 %}
 
-logserver:
+pnda_logserver:
   - {{ pnda_cluster }}-logserver:
       grains:
-        cloudera:
-          cluster_flavour: {{ cluster_flavour }}
         roles:
+          - elk
           - logserver
+          - kibana_dashboard
         pnda_cluster: {{ pnda_cluster }}
 
-cloudera_mgr:
-  - {{ pnda_cluster }}-cdh-cm:
+cloudera_cm:
+- {{ pnda_cluster }}-cdh-cm:
       grains:
         cloudera:
           cluster_flavour: {{ cluster_flavour }}
           role: CM
         roles:
-          - cloudera_management
           - cloudera_manager
+          - platform_testing_cdh
+          - mysql_connector
         pnda_cluster: {{ pnda_cluster }}
+cloudera_mgr:
   - {{ pnda_cluster }}-cdh-mgr1:
       grains:
         cloudera:
           cluster_flavour: {{ cluster_flavour }}
           role: MGR01
         roles:
-          - cloudera_management
           - cloudera_namenode
-          - cloudera_zookeeper
+          - mysql_connector
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr2:
       grains:
@@ -38,9 +39,8 @@ cloudera_mgr:
           cluster_flavour: {{ cluster_flavour }}
           role: MGR02
         roles:          
-          - cloudera_management
           - cloudera_namenode
-          - cloudera_zookeeper
+          - mysql_connector
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr3:
       grains:
@@ -48,7 +48,7 @@ cloudera_mgr:
           cluster_flavour: {{ cluster_flavour }}
           role: MGR03
         roles:
-          - cloudera_management
+          - mysql_connector
         pnda_cluster: {{ pnda_cluster }}
   - {{ pnda_cluster }}-cdh-mgr4:
       grains:
@@ -56,9 +56,9 @@ cloudera_mgr:
           cluster_flavour: {{ cluster_flavour }}
           role: MGR04
         roles:
-          - cloudera_management
-          - cloudera_zookeeper
-          - cloudera_oozie_database          
+          - oozie_database
+          - mysql_connector
+          - hue         
         pnda_cluster: {{ pnda_cluster }}
 
 cloudera_edge:
@@ -70,11 +70,18 @@ cloudera_edge:
         roles:
           - cloudera_edge
           - console_frontend
-          - console_backend
+          - console_backend_data_logger
+          - console_backend_data_manager
+          - graphite
           - gobblin
           - deployment_manager
           - package_repository
           - data_service
+          - impala-shell
+          - yarn-gateway
+          - hbase_opentsdb_tables
+          - hdfs_cleaner
+          - master_dataset
         pnda_cluster: {{ pnda_cluster }}
 
 cloudera_jupyter:
@@ -84,7 +91,6 @@ cloudera_jupyter:
           cluster_flavour: {{ cluster_flavour }}
           role: EDGE
         roles:
-          - cloudera_edge_jupyter
           - jupyter
         pnda_cluster: {{ pnda_cluster }}
 
@@ -95,12 +101,10 @@ cloudera_datanode:
         cloudera:
           cluster_flavour: {{ cluster_flavour }}
           role: DATANODE
-        roles:
-          - cloudera_datanode
         pnda_cluster: {{ pnda_cluster }}
 {% endfor %}
 
-ubuntu_co2large_ccs:
+ubuntu_opentsdb:
 {% for opentsdb_id in range(0, opentsdb_number) %}
   - {{ pnda_cluster }}-opentsdb-{{ opentsdb_id }}:
       grains:
