@@ -3,7 +3,7 @@
 {% set datanodes_number = 3 %}
 {% set opentsdb_number = 2 %}
 
-pnda_logserver:
+logserver:
   - {{ pnda_cluster }}-logserver:
       grains:
         roles:
@@ -12,7 +12,7 @@ pnda_logserver:
           - kibana_dashboard
         pnda_cluster: {{ pnda_cluster }}
 
-cloudera_cm:
+cloudera_mgr:
 - {{ pnda_cluster }}-cdh-cm:
       grains:
         cloudera:
@@ -23,7 +23,6 @@ cloudera_cm:
           - platform_testing_cdh
           - mysql_connector
         pnda_cluster: {{ pnda_cluster }}
-cloudera_mgr:
   - {{ pnda_cluster }}-cdh-mgr1:
       grains:
         cloudera:
@@ -104,7 +103,7 @@ cloudera_datanode:
         pnda_cluster: {{ pnda_cluster }}
 {% endfor %}
 
-ubuntu_opentsdb:
+ubuntu_co2large_ccs:
 {% for opentsdb_id in range(0, opentsdb_number) %}
   - {{ pnda_cluster }}-opentsdb-{{ opentsdb_id }}:
       grains:

@@ -3,7 +3,7 @@
 {% set zookeepers_number = 3 %}
 {% set brokers_number = 2 %}
 
-pnda_zookeeper:
+ubuntu_gplarge:
 {% for zoo_id in range(1, zookeepers_number + 1) %}
   - {{ pnda_cluster }}-zk-{{ zoo_id }}:
       minion:
@@ -17,7 +17,6 @@ pnda_zookeeper:
         cluster: zk{{ pnda_cluster }}
 {% endfor %}
 
-pnda_kafka:
 {% for broker_id in range(1, brokers_number + 1) %}
   - {{ pnda_cluster }}-kafka-{{ broker_id }}:
       minion:
@@ -32,7 +31,6 @@ pnda_kafka:
       security_groups: default
 {% endfor %}
 
-pnda_tools:
   - {{ pnda_cluster }}-tools-1:
       minion:
         mine_functions:
