@@ -42,9 +42,10 @@ ubuntu_gplarge:
           network.ip_addrs:
             interface: eth0
       grains:
+        roles: 
+          - kafka_manager
+          - platform_testing_general
+          - elk
         pnda:
           flavor: {{ cluster_flavor }}
-        roles:
-          - tools
-          - elk
         pnda_cluster: {{ pnda_cluster }}
