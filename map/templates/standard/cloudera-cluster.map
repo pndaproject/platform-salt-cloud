@@ -13,7 +13,7 @@ logserver:
         pnda_cluster: {{ pnda_cluster }}
 
 cloudera_mgr:
-- {{ pnda_cluster }}-cdh-cm:
+  - {{ pnda_cluster }}-cdh-cm:
       grains:
         cloudera:
           cluster_flavour: {{ cluster_flavour }}
