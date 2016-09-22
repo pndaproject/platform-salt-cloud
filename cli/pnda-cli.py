@@ -32,9 +32,12 @@ validation_rules = None
 start = datetime.datetime.now()
 
 def banner():
-    print "🐼  🐼  🐼  🐼  🐼  🐼  🐼  🐼"
-    print "   P a N D A - C L I"
-    print "🐼  🐼  🐼  🐼  🐼  🐼  🐼  🐼"
+    print r"    ____  _   ______  ___ "
+    print r"   / __ \/ | / / __ \/   |"
+    print r"  / /_/ /  |/ / / / / /| |"  
+    print r" / ____/ /|  / /_/ / ___ |"   
+    print r"/_/   /_/ |_/_____/_/  |_|"
+    print r""
 
 def run_cmd(cmd):
     print cmd
