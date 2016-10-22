@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.0.0] 2016-10-21
 ### Changed
 - PNDA-2114: Updated role grains to the new set matching platform-salt
 
